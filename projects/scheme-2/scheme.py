@@ -22,7 +22,7 @@ def scheme_eval(expr, env, _=None): # Optional third argument is ignored
     >>> scheme_eval(expr, create_global_frame())
     4
     """
-    print(1)
+    #print(1)
     # Evaluate atoms
     if scheme_symbolp(expr):
         return env.lookup(expr)
@@ -50,7 +50,7 @@ def self_evaluating(expr):
 def scheme_apply(procedure, args, env):
     """Apply Scheme PROCEDURE to argument values ARGS (a Scheme list) in
     environment ENV."""
-    print(2)
+    #print(2)
     validate_procedure(procedure)
     if isinstance(procedure, BuiltinProcedure):
         return procedure.apply(args, env)
@@ -557,7 +557,7 @@ class MuProcedure(Procedure):
     """A procedure defined by a mu expression, which has dynamic scope.
      _________________
     < Scheme is cool! >
-     -----------------
+     -------5----------
             \   ^__^
              \  (oo)\_______
                 (__)\       )\/\
@@ -573,6 +573,8 @@ class MuProcedure(Procedure):
 
     # BEGIN PROBLEM 18
     "*** YOUR CODE HERE ***"
+    def make_call_frame(self, args, env):
+        return env.make_child_frame(self.formals,args)
     # END PROBLEM 18
 
     def __str__(self):
@@ -589,6 +591,8 @@ def do_mu_form(expressions, env):
     validate_formals(formals)
     # BEGIN PROBLEM 18
     "*** YOUR CODE HERE ***"
+    body=expressions.rest
+    return MuProcedure(formals,body)
     # END PROBLEM 18
 
 SPECIAL_FORMS['mu'] = do_mu_form
